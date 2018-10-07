@@ -1,0 +1,19 @@
+AddDefaultCharset UTF-8
+Options +FollowSymLinks
+IndexIgnore */*
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    # не позволять httpd отдавать файлы, начинающиеся с точки (.htaccess, .svn, .git и прочие)
+    RedirectMatch 403 /\..*$
+
+    # if a directory or a file exists, use it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+
+
+    # otherwise forward it to index.php
+    RewriteRule . index.php
+</IfModule>
